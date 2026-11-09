@@ -23,6 +23,9 @@ class TokenOut(BaseModel):
 class BranchIn(BaseModel):
     code: str = Field(min_length=1, max_length=20)
     name: str = Field(min_length=1, max_length=100)
+    principal: str | None = Field(default=None, max_length=100)
+    principal_email: str | None = Field(default=None, max_length=100)
+    strength: int | None = Field(default=None, ge=0)
     is_active: bool = True
 
 

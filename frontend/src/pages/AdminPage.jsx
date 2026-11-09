@@ -100,17 +100,32 @@ function UsersTab() {
 }
 
 function BranchesTab() {
+  const blankToNull = (v) => (v && String(v).trim() ? v : null);
+
   return (
     <CrudTab title="Branch" endpoint="/admin/branches" defaults={{ is_active: true }}
       columns={[
         { key: "c", title: "Code", dataIndex: "code" },
         { key: "n", title: "Name", dataIndex: "name" },
+        { key: "p", title: "Principal", dataIndex: "principal", render: (v) => v || "-" },
+        { key: "e", title: "Principal Email", dataIndex: "principal_email", render: (v) => v || "-" },
+        { key: "st", title: "Strength", dataIndex: "strength", render: (v) => v ?? "-" },
         { key: "s", title: "Status", dataIndex: "is_active", render: activeTag },
       ]}
       renderForm={() => (
         <>
           <Form.Item name="code" label="Branch Code" rules={[{ required: true, max: 20 }]}><Input /></Form.Item>
           <Form.Item name="name" label="Branch Name" rules={[{ required: true, max: 100 }]}><Input /></Form.Item>
+          <Form.Item name="principal" label="Principal" normalize={blankToNull} rules={[{ max: 100 }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="principal_email" label="Principal Email" normalize={blankToNull}
+            rules={[{ type: "email", message: "Enter a valid email" }, { max: 100 }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="strength" label="Strength">
+            <InputNumber min={0} precision={0} style={{ width: "100%" }} />
+          </Form.Item>
           <Form.Item name="is_active" label="Active" valuePropName="checked"><Switch /></Form.Item>
         </>
       )}

@@ -23,6 +23,9 @@ class Branch(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     code: Mapped[str] = mapped_column(String(20), unique=True)
     name: Mapped[str] = mapped_column(String(100))
+    principal: Mapped[str | None] = mapped_column(String(100))
+    principal_email: Mapped[str | None] = mapped_column(String(100))
+    strength: Mapped[int | None] = mapped_column(Integer)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
 
